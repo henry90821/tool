@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smi.am.dao.AmGiftPackageMapper" >
+  <resultMap id="BaseResultMap" type="com.smi.am.dao.model.AmGiftPackage" >
+    <id column="gp_id" property="gpId" jdbcType="INTEGER" />
+    <result column="gp_name" property="gpName" jdbcType="VARCHAR" />
+    <result column="gp_deliveringWay" property="gpDeliveringway" jdbcType="INTEGER" />
+    <result column="gp_channel" property="gpChannel" jdbcType="VARCHAR" />
+    <result column="gp_sendNum" property="gpSendnum" jdbcType="VARCHAR" />
+    <result column="gp_activityArea" property="gpActivityarea" jdbcType="VARCHAR" />
+    <result column="gp_activityZone" property="gpActivityzone" jdbcType="VARCHAR" />
+    <result column="gp_activityShop" property="gpActivityshop" jdbcType="VARCHAR" />
+    <result column="gp_startTime" property="gpStarttime" jdbcType="TIMESTAMP" />
+    <result column="gp_endTime" property="gpEndtime" jdbcType="TIMESTAMP" />
+    <result column="gp_provideAll" property="gpProvideall" jdbcType="INTEGER" />
+    <result column="gp_status" property="gpStatus" jdbcType="VARCHAR" />
+    <result column="gp_createDate" property="gpCreatedate" jdbcType="TIMESTAMP" />
+    <result column="gp_createUser" property="gpCreateuser" jdbcType="VARCHAR" />
+    <result column="gp_lastModDate" property="gpLastmoddate" jdbcType="TIMESTAMP" />
+    <result column="gp_lastModUser" property="gpLastmoduser" jdbcType="VARCHAR" />
+    <result column="gp_remark" property="gpRemark" jdbcType="VARCHAR" />
+    <result column="gp_isDetele" property="gpIsdetele" jdbcType="INTEGER" />
+    <result column="gp_remainNum" property="gpRemainnum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.smi.am.dao.model.AmGiftPackage" extends="BaseResultMap" >
+    <result column="gp_provideUser" property="gpProvideuser" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gp_id, gp_name, gp_deliveringWay, gp_channel, gp_sendNum, gp_activityArea, gp_activityZone, 
+    gp_activityShop, gp_startTime, gp_endTime, gp_provideAll, gp_status, gp_createDate, 
+    gp_createUser, gp_lastModDate, gp_lastModUser, gp_remark, gp_isDetele, gp_remainNum
+  </sql>
+  <sql id="Blob_Column_List" >
+    gp_provideUser
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.smi.am.dao.model.AmGiftPackageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_gift_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.smi.am.dao.model.AmGiftPackageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from am_gift_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_gift_package
+    where gp_id = #{gpId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from am_gift_package
+    where gp_id = #{gpId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.smi.am.dao.model.AmGiftPackageExample" >
+    delete from am_gift_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.smi.am.dao.model.AmGiftPackage" >
+    insert into am_gift_package (gp_id, gp_name, gp_deliveringWay, 
+      gp_channel, gp_sendNum, gp_activityArea, 
+      gp_activityZone, gp_activityShop, gp_startTime, 
+      gp_endTime, gp_provideAll, gp_status, 
+      gp_createDate, gp_createUser, gp_lastModDate, 
+      gp_lastModUser, gp_remark, gp_isDetele, 
+      gp_remainNum, gp_provideUser)
+    values (#{gpId,jdbcType=INTEGER}, #{gpName,jdbcType=VARCHAR}, #{gpDeliveringway,jdbcType=INTEGER}, 
+      #{gpChannel,jdbcType=VARCHAR}, #{gpSendnum,jdbcType=VARCHAR}, #{gpActivityarea,jdbcType=VARCHAR}, 
+      #{gpActivityzone,jdbcType=VARCHAR}, #{gpActivityshop,jdbcType=VARCHAR}, #{gpStarttime,jdbcType=TIMESTAMP}, 
+      #{gpEndtime,jdbcType=TIMESTAMP}, #{gpProvideall,jdbcType=INTEGER}, #{gpStatus,jdbcType=VARCHAR}, 
+      #{gpCreatedate,jdbcType=TIMESTAMP}, #{gpCreateuser,jdbcType=VARCHAR}, #{gpLastmoddate,jdbcType=TIMESTAMP}, 
+      #{gpLastmoduser,jdbcType=VARCHAR}, #{gpRemark,jdbcType=VARCHAR}, #{gpIsdetele,jdbcType=INTEGER}, 
+      #{gpRemainnum,jdbcType=INTEGER}, #{gpProvideuser,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smi.am.dao.model.AmGiftPackage" >
+    insert into am_gift_package
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gpId != null" >
+        gp_id,
+      </if>
+      <if test="gpName != null" >
+        gp_name,
+      </if>
+      <if test="gpDeliveringway != null" >
+        gp_deliveringWay,
+      </if>
+      <if test="gpChannel != null" >
+        gp_channel,
+      </if>
+      <if test="gpSendnum != null" >
+        gp_sendNum,
+      </if>
+      <if test="gpActivityarea != null" >
+        gp_activityArea,
+      </if>
+      <if test="gpActivityzone != null" >
+        gp_activityZone,
+      </if>
+      <if test="gpActivityshop != null" >
+        gp_activityShop,
+      </if>
+      <if test="gpStarttime != null" >
+        gp_startTime,
+      </if>
+      <if test="gpEndtime != null" >
+        gp_endTime,
+      </if>
+      <if test="gpProvideall != null" >
+        gp_provideAll,
+      </if>
+      <if test="gpStatus != null" >
+        gp_status,
+      </if>
+      <if test="gpCreatedate != null" >
+        gp_createDate,
+      </if>
+      <if test="gpCreateuser != null" >
+        gp_createUser,
+      </if>
+      <if test="gpLastmoddate != null" >
+        gp_lastModDate,
+      </if>
+      <if test="gpLastmoduser != null" >
+        gp_lastModUser,
+      </if>
+      <if test="gpRemark != null" >
+        gp_remark,
+      </if>
+      <if test="gpIsdetele != null" >
+        gp_isDetele,
+      </if>
+      <if test="gpRemainnum != null" >
+        gp_remainNum,
+      </if>
+      <if test="gpProvideuser != null" >
+        gp_provideUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gpId != null" >
+        #{gpId,jdbcType=INTEGER},
+      </if>
+      <if test="gpName != null" >
+        #{gpName,jdbcType=VARCHAR},
+      </if>
+      <if test="gpDeliveringway != null" >
+        #{gpDeliveringway,jdbcType=INTEGER},
+      </if>
+      <if test="gpChannel != null" >
+        #{gpChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="gpSendnum != null" >
+        #{gpSendnum,jdbcType=VARCHAR},
+      </if>
+      <if test="gpActivityarea != null" >
+        #{gpActivityarea,jdbcType=VARCHAR},
+      </if>
+      <if test="gpActivityzone != null" >
+        #{gpActivityzone,jdbcType=VARCHAR},
+      </if>
+      <if test="gpActivityshop != null" >
+        #{gpActivityshop,jdbcType=VARCHAR},
+      </if>
+      <if test="gpStarttime != null" >
+        #{gpStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpEndtime != null" >
+        #{gpEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpProvideall != null" >
+        #{gpProvideall,jdbcType=INTEGER},
+      </if>
+      <if test="gpStatus != null" >
+        #{gpStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="gpCreatedate != null" >
+        #{gpCreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpCreateuser != null" >
+        #{gpCreateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="gpLastmoddate != null" >
+        #{gpLastmoddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpLastmoduser != null" >
+        #{gpLastmoduser,jdbcType=VARCHAR},
+      </if>
+      <if test="gpRemark != null" >
+        #{gpRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="gpIsdetele != null" >
+        #{gpIsdetele,jdbcType=INTEGER},
+      </if>
+      <if test="gpRemainnum != null" >
+        #{gpRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="gpProvideuser != null" >
+        #{gpProvideuser,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.smi.am.dao.model.AmGiftPackageExample" resultType="java.lang.Integer" >
+    select count(*) from am_gift_package
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_gift_package
+    <set >
+      <if test="record.gpId != null" >
+        gp_id = #{record.gpId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpName != null" >
+        gp_name = #{record.gpName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpDeliveringway != null" >
+        gp_deliveringWay = #{record.gpDeliveringway,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpChannel != null" >
+        gp_channel = #{record.gpChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpSendnum != null" >
+        gp_sendNum = #{record.gpSendnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpActivityarea != null" >
+        gp_activityArea = #{record.gpActivityarea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpActivityzone != null" >
+        gp_activityZone = #{record.gpActivityzone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpActivityshop != null" >
+        gp_activityShop = #{record.gpActivityshop,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpStarttime != null" >
+        gp_startTime = #{record.gpStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gpEndtime != null" >
+        gp_endTime = #{record.gpEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gpProvideall != null" >
+        gp_provideAll = #{record.gpProvideall,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpStatus != null" >
+        gp_status = #{record.gpStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpCreatedate != null" >
+        gp_createDate = #{record.gpCreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gpCreateuser != null" >
+        gp_createUser = #{record.gpCreateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpLastmoddate != null" >
+        gp_lastModDate = #{record.gpLastmoddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gpLastmoduser != null" >
+        gp_lastModUser = #{record.gpLastmoduser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpRemark != null" >
+        gp_remark = #{record.gpRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpIsdetele != null" >
+        gp_isDetele = #{record.gpIsdetele,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpRemainnum != null" >
+        gp_remainNum = #{record.gpRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpProvideuser != null" >
+        gp_provideUser = #{record.gpProvideuser,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update am_gift_package
+    set gp_id = #{record.gpId,jdbcType=INTEGER},
+      gp_name = #{record.gpName,jdbcType=VARCHAR},
+      gp_deliveringWay = #{record.gpDeliveringway,jdbcType=INTEGER},
+      gp_channel = #{record.gpChannel,jdbcType=VARCHAR},
+      gp_sendNum = #{record.gpSendnum,jdbcType=VARCHAR},
+      gp_activityArea = #{record.gpActivityarea,jdbcType=VARCHAR},
+      gp_activityZone = #{record.gpActivityzone,jdbcType=VARCHAR},
+      gp_activityShop = #{record.gpActivityshop,jdbcType=VARCHAR},
+      gp_startTime = #{record.gpStarttime,jdbcType=TIMESTAMP},
+      gp_endTime = #{record.gpEndtime,jdbcType=TIMESTAMP},
+      gp_provideAll = #{record.gpProvideall,jdbcType=INTEGER},
+      gp_status = #{record.gpStatus,jdbcType=VARCHAR},
+      gp_createDate = #{record.gpCreatedate,jdbcType=TIMESTAMP},
+      gp_createUser = #{record.gpCreateuser,jdbcType=VARCHAR},
+      gp_lastModDate = #{record.gpLastmoddate,jdbcType=TIMESTAMP},
+      gp_lastModUser = #{record.gpLastmoduser,jdbcType=VARCHAR},
+      gp_remark = #{record.gpRemark,jdbcType=VARCHAR},
+      gp_isDetele = #{record.gpIsdetele,jdbcType=INTEGER},
+      gp_remainNum = #{record.gpRemainnum,jdbcType=INTEGER},
+      gp_provideUser = #{record.gpProvideuser,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_gift_package
+    set gp_id = #{record.gpId,jdbcType=INTEGER},
+      gp_name = #{record.gpName,jdbcType=VARCHAR},
+      gp_deliveringWay = #{record.gpDeliveringway,jdbcType=INTEGER},
+      gp_channel = #{record.gpChannel,jdbcType=VARCHAR},
+      gp_sendNum = #{record.gpSendnum,jdbcType=VARCHAR},
+      gp_activityArea = #{record.gpActivityarea,jdbcType=VARCHAR},
+      gp_activityZone = #{record.gpActivityzone,jdbcType=VARCHAR},
+      gp_activityShop = #{record.gpActivityshop,jdbcType=VARCHAR},
+      gp_startTime = #{record.gpStarttime,jdbcType=TIMESTAMP},
+      gp_endTime = #{record.gpEndtime,jdbcType=TIMESTAMP},
+      gp_provideAll = #{record.gpProvideall,jdbcType=INTEGER},
+      gp_status = #{record.gpStatus,jdbcType=VARCHAR},
+      gp_createDate = #{record.gpCreatedate,jdbcType=TIMESTAMP},
+      gp_createUser = #{record.gpCreateuser,jdbcType=VARCHAR},
+      gp_lastModDate = #{record.gpLastmoddate,jdbcType=TIMESTAMP},
+      gp_lastModUser = #{record.gpLastmoduser,jdbcType=VARCHAR},
+      gp_remark = #{record.gpRemark,jdbcType=VARCHAR},
+      gp_isDetele = #{record.gpIsdetele,jdbcType=INTEGER},
+      gp_remainNum = #{record.gpRemainnum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smi.am.dao.model.AmGiftPackage" >
+    update am_gift_package
+    <set >
+      <if test="gpName != null" >
+        gp_name = #{gpName,jdbcType=VARCHAR},
+      </if>
+      <if test="gpDeliveringway != null" >
+        gp_deliveringWay = #{gpDeliveringway,jdbcType=INTEGER},
+      </if>
+      <if test="gpChannel != null" >
+        gp_channel = #{gpChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="gpSendnum != null" >
+        gp_sendNum = #{gpSendnum,jdbcType=VARCHAR},
+      </if>
+      <if test="gpActivityarea != null" >
+        gp_activityArea = #{gpActivityarea,jdbcType=VARCHAR},
+      </if>
+      <if test="gpActivityzone != null" >
+        gp_activityZone = #{gpActivityzone,jdbcType=VARCHAR},
+      </if>
+      <if test="gpActivityshop != null" >
+        gp_activityShop = #{gpActivityshop,jdbcType=VARCHAR},
+      </if>
+      <if test="gpStarttime != null" >
+        gp_startTime = #{gpStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpEndtime != null" >
+        gp_endTime = #{gpEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpProvideall != null" >
+        gp_provideAll = #{gpProvideall,jdbcType=INTEGER},
+      </if>
+      <if test="gpStatus != null" >
+        gp_status = #{gpStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="gpCreatedate != null" >
+        gp_createDate = #{gpCreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpCreateuser != null" >
+        gp_createUser = #{gpCreateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="gpLastmoddate != null" >
+        gp_lastModDate = #{gpLastmoddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gpLastmoduser != null" >
+        gp_lastModUser = #{gpLastmoduser,jdbcType=VARCHAR},
+      </if>
+      <if test="gpRemark != null" >
+        gp_remark = #{gpRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="gpIsdetele != null" >
+        gp_isDetele = #{gpIsdetele,jdbcType=INTEGER},
+      </if>
+      <if test="gpRemainnum != null" >
+        gp_remainNum = #{gpRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="gpProvideuser != null" >
+        gp_provideUser = #{gpProvideuser,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where gp_id = #{gpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.smi.am.dao.model.AmGiftPackage" >
+    update am_gift_package
+    set gp_name = #{gpName,jdbcType=VARCHAR},
+      gp_deliveringWay = #{gpDeliveringway,jdbcType=INTEGER},
+      gp_channel = #{gpChannel,jdbcType=VARCHAR},
+      gp_sendNum = #{gpSendnum,jdbcType=VARCHAR},
+      gp_activityArea = #{gpActivityarea,jdbcType=VARCHAR},
+      gp_activityZone = #{gpActivityzone,jdbcType=VARCHAR},
+      gp_activityShop = #{gpActivityshop,jdbcType=VARCHAR},
+      gp_startTime = #{gpStarttime,jdbcType=TIMESTAMP},
+      gp_endTime = #{gpEndtime,jdbcType=TIMESTAMP},
+      gp_provideAll = #{gpProvideall,jdbcType=INTEGER},
+      gp_status = #{gpStatus,jdbcType=VARCHAR},
+      gp_createDate = #{gpCreatedate,jdbcType=TIMESTAMP},
+      gp_createUser = #{gpCreateuser,jdbcType=VARCHAR},
+      gp_lastModDate = #{gpLastmoddate,jdbcType=TIMESTAMP},
+      gp_lastModUser = #{gpLastmoduser,jdbcType=VARCHAR},
+      gp_remark = #{gpRemark,jdbcType=VARCHAR},
+      gp_isDetele = #{gpIsdetele,jdbcType=INTEGER},
+      gp_remainNum = #{gpRemainnum,jdbcType=INTEGER},
+      gp_provideUser = #{gpProvideuser,jdbcType=LONGVARBINARY}
+    where gp_id = #{gpId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smi.am.dao.model.AmGiftPackage" >
+    update am_gift_package
+    set gp_name = #{gpName,jdbcType=VARCHAR},
+      gp_deliveringWay = #{gpDeliveringway,jdbcType=INTEGER},
+      gp_channel = #{gpChannel,jdbcType=VARCHAR},
+      gp_sendNum = #{gpSendnum,jdbcType=VARCHAR},
+      gp_activityArea = #{gpActivityarea,jdbcType=VARCHAR},
+      gp_activityZone = #{gpActivityzone,jdbcType=VARCHAR},
+      gp_activityShop = #{gpActivityshop,jdbcType=VARCHAR},
+      gp_startTime = #{gpStarttime,jdbcType=TIMESTAMP},
+      gp_endTime = #{gpEndtime,jdbcType=TIMESTAMP},
+      gp_provideAll = #{gpProvideall,jdbcType=INTEGER},
+      gp_status = #{gpStatus,jdbcType=VARCHAR},
+      gp_createDate = #{gpCreatedate,jdbcType=TIMESTAMP},
+      gp_createUser = #{gpCreateuser,jdbcType=VARCHAR},
+      gp_lastModDate = #{gpLastmoddate,jdbcType=TIMESTAMP},
+      gp_lastModUser = #{gpLastmoduser,jdbcType=VARCHAR},
+      gp_remark = #{gpRemark,jdbcType=VARCHAR},
+      gp_isDetele = #{gpIsdetele,jdbcType=INTEGER},
+      gp_remainNum = #{gpRemainnum,jdbcType=INTEGER}
+    where gp_id = #{gpId,jdbcType=INTEGER}
+  </update>
+</mapper>

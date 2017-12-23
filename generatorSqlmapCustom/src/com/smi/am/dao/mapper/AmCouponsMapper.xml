@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smi.am.dao.AmCouponsMapper" >
+  <resultMap id="BaseResultMap" type="com.smi.am.dao.model.AmCoupons" >
+    <id column="c_couponsId" property="cCouponsid" jdbcType="VARCHAR" />
+    <result column="c_couponsName" property="cCouponsname" jdbcType="VARCHAR" />
+    <result column="c_couponsType" property="cCouponstype" jdbcType="INTEGER" />
+    <result column="c_deliveringWay" property="cDeliveringway" jdbcType="INTEGER" />
+    <result column="c_channel" property="cChannel" jdbcType="VARCHAR" />
+    <result column="c_userChannel" property="cUserchannel" jdbcType="INTEGER" />
+    <result column="c_couponsMsg" property="cCouponsmsg" jdbcType="VARCHAR" />
+    <result column="c_avaliabledOrderAmt" property="cAvaliabledorderamt" jdbcType="DOUBLE" />
+    <result column="c_dailyLimit" property="cDailylimit" jdbcType="INTEGER" />
+    <result column="c_preSendCount" property="cPresendcount" jdbcType="INTEGER" />
+    <result column="c_permanent" property="cPermanent" jdbcType="INTEGER" />
+    <result column="c_limitStart" property="cLimitstart" jdbcType="TIMESTAMP" />
+    <result column="c_limitEnd" property="cLimitend" jdbcType="TIMESTAMP" />
+    <result column="c_cumulative" property="cCumulative" jdbcType="INTEGER" />
+    <result column="c_activityArea" property="cActivityarea" jdbcType="VARCHAR" />
+    <result column="c_activityZone" property="cActivityzone" jdbcType="VARCHAR" />
+    <result column="c_activityStartTime" property="cActivitystarttime" jdbcType="TIMESTAMP" />
+    <result column="c_provideAll" property="cProvideall" jdbcType="INTEGER" />
+    <result column="c_auditStatus" property="cAuditstatus" jdbcType="INTEGER" />
+    <result column="c_createDate" property="cCreatedate" jdbcType="TIMESTAMP" />
+    <result column="c_createUser" property="cCreateuser" jdbcType="VARCHAR" />
+    <result column="c_lastModDate" property="cLastmoddate" jdbcType="TIMESTAMP" />
+    <result column="c_lastModUser" property="cLastmoduser" jdbcType="VARCHAR" />
+    <result column="c_activityEndTime" property="cActivityendtime" jdbcType="TIMESTAMP" />
+    <result column="c_detailsInfo" property="cDetailsinfo" jdbcType="VARCHAR" />
+    <result column="c_isDetele" property="cIsdetele" jdbcType="INTEGER" />
+    <result column="c_remainNum" property="cRemainnum" jdbcType="INTEGER" />
+    <result column="c_accumulateCouponsIds" property="cAccumulatecouponsids" jdbcType="VARCHAR" />
+    <result column="c_remark" property="cRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.smi.am.dao.model.AmCouponsWithBLOBs" extends="BaseResultMap" >
+    <result column="c_activityStore" property="cActivitystore" jdbcType="LONGVARBINARY" />
+    <result column="c_provideUser" property="cProvideuser" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    c_couponsId, c_couponsName, c_couponsType, c_deliveringWay, c_channel, c_userChannel, 
+    c_couponsMsg, c_avaliabledOrderAmt, c_dailyLimit, c_preSendCount, c_permanent, c_limitStart, 
+    c_limitEnd, c_cumulative, c_activityArea, c_activityZone, c_activityStartTime, c_provideAll, 
+    c_auditStatus, c_createDate, c_createUser, c_lastModDate, c_lastModUser, c_activityEndTime, 
+    c_detailsInfo, c_isDetele, c_remainNum, c_accumulateCouponsIds, c_remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    c_activityStore, c_provideUser
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.smi.am.dao.model.AmCouponsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_coupons
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.smi.am.dao.model.AmCouponsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from am_coupons
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from am_coupons
+    where c_couponsId = #{cCouponsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from am_coupons
+    where c_couponsId = #{cCouponsid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.smi.am.dao.model.AmCouponsExample" >
+    delete from am_coupons
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.smi.am.dao.model.AmCouponsWithBLOBs" >
+    insert into am_coupons (c_couponsId, c_couponsName, c_couponsType, 
+      c_deliveringWay, c_channel, c_userChannel, 
+      c_couponsMsg, c_avaliabledOrderAmt, c_dailyLimit, 
+      c_preSendCount, c_permanent, c_limitStart, 
+      c_limitEnd, c_cumulative, c_activityArea, 
+      c_activityZone, c_activityStartTime, c_provideAll, 
+      c_auditStatus, c_createDate, c_createUser, 
+      c_lastModDate, c_lastModUser, c_activityEndTime, 
+      c_detailsInfo, c_isDetele, c_remainNum, 
+      c_accumulateCouponsIds, c_remark, c_activityStore, 
+      c_provideUser)
+    values (#{cCouponsid,jdbcType=VARCHAR}, #{cCouponsname,jdbcType=VARCHAR}, #{cCouponstype,jdbcType=INTEGER}, 
+      #{cDeliveringway,jdbcType=INTEGER}, #{cChannel,jdbcType=VARCHAR}, #{cUserchannel,jdbcType=INTEGER}, 
+      #{cCouponsmsg,jdbcType=VARCHAR}, #{cAvaliabledorderamt,jdbcType=DOUBLE}, #{cDailylimit,jdbcType=INTEGER}, 
+      #{cPresendcount,jdbcType=INTEGER}, #{cPermanent,jdbcType=INTEGER}, #{cLimitstart,jdbcType=TIMESTAMP}, 
+      #{cLimitend,jdbcType=TIMESTAMP}, #{cCumulative,jdbcType=INTEGER}, #{cActivityarea,jdbcType=VARCHAR}, 
+      #{cActivityzone,jdbcType=VARCHAR}, #{cActivitystarttime,jdbcType=TIMESTAMP}, #{cProvideall,jdbcType=INTEGER}, 
+      #{cAuditstatus,jdbcType=INTEGER}, #{cCreatedate,jdbcType=TIMESTAMP}, #{cCreateuser,jdbcType=VARCHAR}, 
+      #{cLastmoddate,jdbcType=TIMESTAMP}, #{cLastmoduser,jdbcType=VARCHAR}, #{cActivityendtime,jdbcType=TIMESTAMP}, 
+      #{cDetailsinfo,jdbcType=VARCHAR}, #{cIsdetele,jdbcType=INTEGER}, #{cRemainnum,jdbcType=INTEGER}, 
+      #{cAccumulatecouponsids,jdbcType=VARCHAR}, #{cRemark,jdbcType=VARCHAR}, #{cActivitystore,jdbcType=LONGVARBINARY}, 
+      #{cProvideuser,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smi.am.dao.model.AmCouponsWithBLOBs" >
+    insert into am_coupons
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cCouponsid != null" >
+        c_couponsId,
+      </if>
+      <if test="cCouponsname != null" >
+        c_couponsName,
+      </if>
+      <if test="cCouponstype != null" >
+        c_couponsType,
+      </if>
+      <if test="cDeliveringway != null" >
+        c_deliveringWay,
+      </if>
+      <if test="cChannel != null" >
+        c_channel,
+      </if>
+      <if test="cUserchannel != null" >
+        c_userChannel,
+      </if>
+      <if test="cCouponsmsg != null" >
+        c_couponsMsg,
+      </if>
+      <if test="cAvaliabledorderamt != null" >
+        c_avaliabledOrderAmt,
+      </if>
+      <if test="cDailylimit != null" >
+        c_dailyLimit,
+      </if>
+      <if test="cPresendcount != null" >
+        c_preSendCount,
+      </if>
+      <if test="cPermanent != null" >
+        c_permanent,
+      </if>
+      <if test="cLimitstart != null" >
+        c_limitStart,
+      </if>
+      <if test="cLimitend != null" >
+        c_limitEnd,
+      </if>
+      <if test="cCumulative != null" >
+        c_cumulative,
+      </if>
+      <if test="cActivityarea != null" >
+        c_activityArea,
+      </if>
+      <if test="cActivityzone != null" >
+        c_activityZone,
+      </if>
+      <if test="cActivitystarttime != null" >
+        c_activityStartTime,
+      </if>
+      <if test="cProvideall != null" >
+        c_provideAll,
+      </if>
+      <if test="cAuditstatus != null" >
+        c_auditStatus,
+      </if>
+      <if test="cCreatedate != null" >
+        c_createDate,
+      </if>
+      <if test="cCreateuser != null" >
+        c_createUser,
+      </if>
+      <if test="cLastmoddate != null" >
+        c_lastModDate,
+      </if>
+      <if test="cLastmoduser != null" >
+        c_lastModUser,
+      </if>
+      <if test="cActivityendtime != null" >
+        c_activityEndTime,
+      </if>
+      <if test="cDetailsinfo != null" >
+        c_detailsInfo,
+      </if>
+      <if test="cIsdetele != null" >
+        c_isDetele,
+      </if>
+      <if test="cRemainnum != null" >
+        c_remainNum,
+      </if>
+      <if test="cAccumulatecouponsids != null" >
+        c_accumulateCouponsIds,
+      </if>
+      <if test="cRemark != null" >
+        c_remark,
+      </if>
+      <if test="cActivitystore != null" >
+        c_activityStore,
+      </if>
+      <if test="cProvideuser != null" >
+        c_provideUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cCouponsid != null" >
+        #{cCouponsid,jdbcType=VARCHAR},
+      </if>
+      <if test="cCouponsname != null" >
+        #{cCouponsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCouponstype != null" >
+        #{cCouponstype,jdbcType=INTEGER},
+      </if>
+      <if test="cDeliveringway != null" >
+        #{cDeliveringway,jdbcType=INTEGER},
+      </if>
+      <if test="cChannel != null" >
+        #{cChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserchannel != null" >
+        #{cUserchannel,jdbcType=INTEGER},
+      </if>
+      <if test="cCouponsmsg != null" >
+        #{cCouponsmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cAvaliabledorderamt != null" >
+        #{cAvaliabledorderamt,jdbcType=DOUBLE},
+      </if>
+      <if test="cDailylimit != null" >
+        #{cDailylimit,jdbcType=INTEGER},
+      </if>
+      <if test="cPresendcount != null" >
+        #{cPresendcount,jdbcType=INTEGER},
+      </if>
+      <if test="cPermanent != null" >
+        #{cPermanent,jdbcType=INTEGER},
+      </if>
+      <if test="cLimitstart != null" >
+        #{cLimitstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLimitend != null" >
+        #{cLimitend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCumulative != null" >
+        #{cCumulative,jdbcType=INTEGER},
+      </if>
+      <if test="cActivityarea != null" >
+        #{cActivityarea,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivityzone != null" >
+        #{cActivityzone,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivitystarttime != null" >
+        #{cActivitystarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cProvideall != null" >
+        #{cProvideall,jdbcType=INTEGER},
+      </if>
+      <if test="cAuditstatus != null" >
+        #{cAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cCreatedate != null" >
+        #{cCreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateuser != null" >
+        #{cCreateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastmoddate != null" >
+        #{cLastmoddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastmoduser != null" >
+        #{cLastmoduser,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivityendtime != null" >
+        #{cActivityendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDetailsinfo != null" >
+        #{cDetailsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdetele != null" >
+        #{cIsdetele,jdbcType=INTEGER},
+      </if>
+      <if test="cRemainnum != null" >
+        #{cRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="cAccumulatecouponsids != null" >
+        #{cAccumulatecouponsids,jdbcType=VARCHAR},
+      </if>
+      <if test="cRemark != null" >
+        #{cRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivitystore != null" >
+        #{cActivitystore,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="cProvideuser != null" >
+        #{cProvideuser,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.smi.am.dao.model.AmCouponsExample" resultType="java.lang.Integer" >
+    select count(*) from am_coupons
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update am_coupons
+    <set >
+      <if test="record.cCouponsid != null" >
+        c_couponsId = #{record.cCouponsid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cCouponsname != null" >
+        c_couponsName = #{record.cCouponsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cCouponstype != null" >
+        c_couponsType = #{record.cCouponstype,jdbcType=INTEGER},
+      </if>
+      <if test="record.cDeliveringway != null" >
+        c_deliveringWay = #{record.cDeliveringway,jdbcType=INTEGER},
+      </if>
+      <if test="record.cChannel != null" >
+        c_channel = #{record.cChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cUserchannel != null" >
+        c_userChannel = #{record.cUserchannel,jdbcType=INTEGER},
+      </if>
+      <if test="record.cCouponsmsg != null" >
+        c_couponsMsg = #{record.cCouponsmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cAvaliabledorderamt != null" >
+        c_avaliabledOrderAmt = #{record.cAvaliabledorderamt,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cDailylimit != null" >
+        c_dailyLimit = #{record.cDailylimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.cPresendcount != null" >
+        c_preSendCount = #{record.cPresendcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.cPermanent != null" >
+        c_permanent = #{record.cPermanent,jdbcType=INTEGER},
+      </if>
+      <if test="record.cLimitstart != null" >
+        c_limitStart = #{record.cLimitstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cLimitend != null" >
+        c_limitEnd = #{record.cLimitend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cCumulative != null" >
+        c_cumulative = #{record.cCumulative,jdbcType=INTEGER},
+      </if>
+      <if test="record.cActivityarea != null" >
+        c_activityArea = #{record.cActivityarea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cActivityzone != null" >
+        c_activityZone = #{record.cActivityzone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cActivitystarttime != null" >
+        c_activityStartTime = #{record.cActivitystarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cProvideall != null" >
+        c_provideAll = #{record.cProvideall,jdbcType=INTEGER},
+      </if>
+      <if test="record.cAuditstatus != null" >
+        c_auditStatus = #{record.cAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.cCreatedate != null" >
+        c_createDate = #{record.cCreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cCreateuser != null" >
+        c_createUser = #{record.cCreateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cLastmoddate != null" >
+        c_lastModDate = #{record.cLastmoddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cLastmoduser != null" >
+        c_lastModUser = #{record.cLastmoduser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cActivityendtime != null" >
+        c_activityEndTime = #{record.cActivityendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cDetailsinfo != null" >
+        c_detailsInfo = #{record.cDetailsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cIsdetele != null" >
+        c_isDetele = #{record.cIsdetele,jdbcType=INTEGER},
+      </if>
+      <if test="record.cRemainnum != null" >
+        c_remainNum = #{record.cRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.cAccumulatecouponsids != null" >
+        c_accumulateCouponsIds = #{record.cAccumulatecouponsids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cRemark != null" >
+        c_remark = #{record.cRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cActivitystore != null" >
+        c_activityStore = #{record.cActivitystore,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="record.cProvideuser != null" >
+        c_provideUser = #{record.cProvideuser,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update am_coupons
+    set c_couponsId = #{record.cCouponsid,jdbcType=VARCHAR},
+      c_couponsName = #{record.cCouponsname,jdbcType=VARCHAR},
+      c_couponsType = #{record.cCouponstype,jdbcType=INTEGER},
+      c_deliveringWay = #{record.cDeliveringway,jdbcType=INTEGER},
+      c_channel = #{record.cChannel,jdbcType=VARCHAR},
+      c_userChannel = #{record.cUserchannel,jdbcType=INTEGER},
+      c_couponsMsg = #{record.cCouponsmsg,jdbcType=VARCHAR},
+      c_avaliabledOrderAmt = #{record.cAvaliabledorderamt,jdbcType=DOUBLE},
+      c_dailyLimit = #{record.cDailylimit,jdbcType=INTEGER},
+      c_preSendCount = #{record.cPresendcount,jdbcType=INTEGER},
+      c_permanent = #{record.cPermanent,jdbcType=INTEGER},
+      c_limitStart = #{record.cLimitstart,jdbcType=TIMESTAMP},
+      c_limitEnd = #{record.cLimitend,jdbcType=TIMESTAMP},
+      c_cumulative = #{record.cCumulative,jdbcType=INTEGER},
+      c_activityArea = #{record.cActivityarea,jdbcType=VARCHAR},
+      c_activityZone = #{record.cActivityzone,jdbcType=VARCHAR},
+      c_activityStartTime = #{record.cActivitystarttime,jdbcType=TIMESTAMP},
+      c_provideAll = #{record.cProvideall,jdbcType=INTEGER},
+      c_auditStatus = #{record.cAuditstatus,jdbcType=INTEGER},
+      c_createDate = #{record.cCreatedate,jdbcType=TIMESTAMP},
+      c_createUser = #{record.cCreateuser,jdbcType=VARCHAR},
+      c_lastModDate = #{record.cLastmoddate,jdbcType=TIMESTAMP},
+      c_lastModUser = #{record.cLastmoduser,jdbcType=VARCHAR},
+      c_activityEndTime = #{record.cActivityendtime,jdbcType=TIMESTAMP},
+      c_detailsInfo = #{record.cDetailsinfo,jdbcType=VARCHAR},
+      c_isDetele = #{record.cIsdetele,jdbcType=INTEGER},
+      c_remainNum = #{record.cRemainnum,jdbcType=INTEGER},
+      c_accumulateCouponsIds = #{record.cAccumulatecouponsids,jdbcType=VARCHAR},
+      c_remark = #{record.cRemark,jdbcType=VARCHAR},
+      c_activityStore = #{record.cActivitystore,jdbcType=LONGVARBINARY},
+      c_provideUser = #{record.cProvideuser,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update am_coupons
+    set c_couponsId = #{record.cCouponsid,jdbcType=VARCHAR},
+      c_couponsName = #{record.cCouponsname,jdbcType=VARCHAR},
+      c_couponsType = #{record.cCouponstype,jdbcType=INTEGER},
+      c_deliveringWay = #{record.cDeliveringway,jdbcType=INTEGER},
+      c_channel = #{record.cChannel,jdbcType=VARCHAR},
+      c_userChannel = #{record.cUserchannel,jdbcType=INTEGER},
+      c_couponsMsg = #{record.cCouponsmsg,jdbcType=VARCHAR},
+      c_avaliabledOrderAmt = #{record.cAvaliabledorderamt,jdbcType=DOUBLE},
+      c_dailyLimit = #{record.cDailylimit,jdbcType=INTEGER},
+      c_preSendCount = #{record.cPresendcount,jdbcType=INTEGER},
+      c_permanent = #{record.cPermanent,jdbcType=INTEGER},
+      c_limitStart = #{record.cLimitstart,jdbcType=TIMESTAMP},
+      c_limitEnd = #{record.cLimitend,jdbcType=TIMESTAMP},
+      c_cumulative = #{record.cCumulative,jdbcType=INTEGER},
+      c_activityArea = #{record.cActivityarea,jdbcType=VARCHAR},
+      c_activityZone = #{record.cActivityzone,jdbcType=VARCHAR},
+      c_activityStartTime = #{record.cActivitystarttime,jdbcType=TIMESTAMP},
+      c_provideAll = #{record.cProvideall,jdbcType=INTEGER},
+      c_auditStatus = #{record.cAuditstatus,jdbcType=INTEGER},
+      c_createDate = #{record.cCreatedate,jdbcType=TIMESTAMP},
+      c_createUser = #{record.cCreateuser,jdbcType=VARCHAR},
+      c_lastModDate = #{record.cLastmoddate,jdbcType=TIMESTAMP},
+      c_lastModUser = #{record.cLastmoduser,jdbcType=VARCHAR},
+      c_activityEndTime = #{record.cActivityendtime,jdbcType=TIMESTAMP},
+      c_detailsInfo = #{record.cDetailsinfo,jdbcType=VARCHAR},
+      c_isDetele = #{record.cIsdetele,jdbcType=INTEGER},
+      c_remainNum = #{record.cRemainnum,jdbcType=INTEGER},
+      c_accumulateCouponsIds = #{record.cAccumulatecouponsids,jdbcType=VARCHAR},
+      c_remark = #{record.cRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smi.am.dao.model.AmCouponsWithBLOBs" >
+    update am_coupons
+    <set >
+      <if test="cCouponsname != null" >
+        c_couponsName = #{cCouponsname,jdbcType=VARCHAR},
+      </if>
+      <if test="cCouponstype != null" >
+        c_couponsType = #{cCouponstype,jdbcType=INTEGER},
+      </if>
+      <if test="cDeliveringway != null" >
+        c_deliveringWay = #{cDeliveringway,jdbcType=INTEGER},
+      </if>
+      <if test="cChannel != null" >
+        c_channel = #{cChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="cUserchannel != null" >
+        c_userChannel = #{cUserchannel,jdbcType=INTEGER},
+      </if>
+      <if test="cCouponsmsg != null" >
+        c_couponsMsg = #{cCouponsmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="cAvaliabledorderamt != null" >
+        c_avaliabledOrderAmt = #{cAvaliabledorderamt,jdbcType=DOUBLE},
+      </if>
+      <if test="cDailylimit != null" >
+        c_dailyLimit = #{cDailylimit,jdbcType=INTEGER},
+      </if>
+      <if test="cPresendcount != null" >
+        c_preSendCount = #{cPresendcount,jdbcType=INTEGER},
+      </if>
+      <if test="cPermanent != null" >
+        c_permanent = #{cPermanent,jdbcType=INTEGER},
+      </if>
+      <if test="cLimitstart != null" >
+        c_limitStart = #{cLimitstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLimitend != null" >
+        c_limitEnd = #{cLimitend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCumulative != null" >
+        c_cumulative = #{cCumulative,jdbcType=INTEGER},
+      </if>
+      <if test="cActivityarea != null" >
+        c_activityArea = #{cActivityarea,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivityzone != null" >
+        c_activityZone = #{cActivityzone,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivitystarttime != null" >
+        c_activityStartTime = #{cActivitystarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cProvideall != null" >
+        c_provideAll = #{cProvideall,jdbcType=INTEGER},
+      </if>
+      <if test="cAuditstatus != null" >
+        c_auditStatus = #{cAuditstatus,jdbcType=INTEGER},
+      </if>
+      <if test="cCreatedate != null" >
+        c_createDate = #{cCreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cCreateuser != null" >
+        c_createUser = #{cCreateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="cLastmoddate != null" >
+        c_lastModDate = #{cLastmoddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cLastmoduser != null" >
+        c_lastModUser = #{cLastmoduser,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivityendtime != null" >
+        c_activityEndTime = #{cActivityendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cDetailsinfo != null" >
+        c_detailsInfo = #{cDetailsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="cIsdetele != null" >
+        c_isDetele = #{cIsdetele,jdbcType=INTEGER},
+      </if>
+      <if test="cRemainnum != null" >
+        c_remainNum = #{cRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="cAccumulatecouponsids != null" >
+        c_accumulateCouponsIds = #{cAccumulatecouponsids,jdbcType=VARCHAR},
+      </if>
+      <if test="cRemark != null" >
+        c_remark = #{cRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="cActivitystore != null" >
+        c_activityStore = #{cActivitystore,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="cProvideuser != null" >
+        c_provideUser = #{cProvideuser,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where c_couponsId = #{cCouponsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.smi.am.dao.model.AmCouponsWithBLOBs" >
+    update am_coupons
+    set c_couponsName = #{cCouponsname,jdbcType=VARCHAR},
+      c_couponsType = #{cCouponstype,jdbcType=INTEGER},
+      c_deliveringWay = #{cDeliveringway,jdbcType=INTEGER},
+      c_channel = #{cChannel,jdbcType=VARCHAR},
+      c_userChannel = #{cUserchannel,jdbcType=INTEGER},
+      c_couponsMsg = #{cCouponsmsg,jdbcType=VARCHAR},
+      c_avaliabledOrderAmt = #{cAvaliabledorderamt,jdbcType=DOUBLE},
+      c_dailyLimit = #{cDailylimit,jdbcType=INTEGER},
+      c_preSendCount = #{cPresendcount,jdbcType=INTEGER},
+      c_permanent = #{cPermanent,jdbcType=INTEGER},
+      c_limitStart = #{cLimitstart,jdbcType=TIMESTAMP},
+      c_limitEnd = #{cLimitend,jdbcType=TIMESTAMP},
+      c_cumulative = #{cCumulative,jdbcType=INTEGER},
+      c_activityArea = #{cActivityarea,jdbcType=VARCHAR},
+      c_activityZone = #{cActivityzone,jdbcType=VARCHAR},
+      c_activityStartTime = #{cActivitystarttime,jdbcType=TIMESTAMP},
+      c_provideAll = #{cProvideall,jdbcType=INTEGER},
+      c_auditStatus = #{cAuditstatus,jdbcType=INTEGER},
+      c_createDate = #{cCreatedate,jdbcType=TIMESTAMP},
+      c_createUser = #{cCreateuser,jdbcType=VARCHAR},
+      c_lastModDate = #{cLastmoddate,jdbcType=TIMESTAMP},
+      c_lastModUser = #{cLastmoduser,jdbcType=VARCHAR},
+      c_activityEndTime = #{cActivityendtime,jdbcType=TIMESTAMP},
+      c_detailsInfo = #{cDetailsinfo,jdbcType=VARCHAR},
+      c_isDetele = #{cIsdetele,jdbcType=INTEGER},
+      c_remainNum = #{cRemainnum,jdbcType=INTEGER},
+      c_accumulateCouponsIds = #{cAccumulatecouponsids,jdbcType=VARCHAR},
+      c_remark = #{cRemark,jdbcType=VARCHAR},
+      c_activityStore = #{cActivitystore,jdbcType=LONGVARBINARY},
+      c_provideUser = #{cProvideuser,jdbcType=LONGVARBINARY}
+    where c_couponsId = #{cCouponsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smi.am.dao.model.AmCoupons" >
+    update am_coupons
+    set c_couponsName = #{cCouponsname,jdbcType=VARCHAR},
+      c_couponsType = #{cCouponstype,jdbcType=INTEGER},
+      c_deliveringWay = #{cDeliveringway,jdbcType=INTEGER},
+      c_channel = #{cChannel,jdbcType=VARCHAR},
+      c_userChannel = #{cUserchannel,jdbcType=INTEGER},
+      c_couponsMsg = #{cCouponsmsg,jdbcType=VARCHAR},
+      c_avaliabledOrderAmt = #{cAvaliabledorderamt,jdbcType=DOUBLE},
+      c_dailyLimit = #{cDailylimit,jdbcType=INTEGER},
+      c_preSendCount = #{cPresendcount,jdbcType=INTEGER},
+      c_permanent = #{cPermanent,jdbcType=INTEGER},
+      c_limitStart = #{cLimitstart,jdbcType=TIMESTAMP},
+      c_limitEnd = #{cLimitend,jdbcType=TIMESTAMP},
+      c_cumulative = #{cCumulative,jdbcType=INTEGER},
+      c_activityArea = #{cActivityarea,jdbcType=VARCHAR},
+      c_activityZone = #{cActivityzone,jdbcType=VARCHAR},
+      c_activityStartTime = #{cActivitystarttime,jdbcType=TIMESTAMP},
+      c_provideAll = #{cProvideall,jdbcType=INTEGER},
+      c_auditStatus = #{cAuditstatus,jdbcType=INTEGER},
+      c_createDate = #{cCreatedate,jdbcType=TIMESTAMP},
+      c_createUser = #{cCreateuser,jdbcType=VARCHAR},
+      c_lastModDate = #{cLastmoddate,jdbcType=TIMESTAMP},
+      c_lastModUser = #{cLastmoduser,jdbcType=VARCHAR},
+      c_activityEndTime = #{cActivityendtime,jdbcType=TIMESTAMP},
+      c_detailsInfo = #{cDetailsinfo,jdbcType=VARCHAR},
+      c_isDetele = #{cIsdetele,jdbcType=INTEGER},
+      c_remainNum = #{cRemainnum,jdbcType=INTEGER},
+      c_accumulateCouponsIds = #{cAccumulatecouponsids,jdbcType=VARCHAR},
+      c_remark = #{cRemark,jdbcType=VARCHAR}
+    where c_couponsId = #{cCouponsid,jdbcType=VARCHAR}
+  </update>
+</mapper>
